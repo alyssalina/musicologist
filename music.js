@@ -1,18 +1,22 @@
 const musicInfo = [];
 
 
-function testTheAPI() {
+function rickRoll() {
 	$.ajax({
 		url: "https://itunes.apple.com/lookup?id=299608177",
-		success: function(response) {
-			console.log("We got a response from Apple (I think)!");
-			console.log(response);
-		}
+    type: "GET",
+    datatype: "json",
+    success: function(iTunesResult){
+      let suggestion = JSON.parse(iTunesResult).results[0];
+      console.log(iTunesResult);
+      let playlistItem = (suggestion.trackName + " by " + suggestion.artistName);
+      console.log(playlistItem);
+      $('#playlistSpot').append("<div>"+ playlistItem +"</div>");
+      }
 	});
 }
 
 console.log("The script loaded!");
-testTheAPI();
 
 
 function addSongFromField(event) {
@@ -52,14 +56,19 @@ $('#getPlaylistBtn').click(function (event) {
   $.each(musicInfo, function(i,listItem) {
     $.ajax({
       url:'https://itunes.apple.com/search?term=' + listItem + '&limit=1',
+      type: "GET",
+      datatype: "json",
       success: function(iTunesResult){
+        let suggestion = JSON.parse(iTunesResult).results[0];
         console.log(iTunesResult);
-        let playlistItem = (iTunesResult.trackCensoredName + "by" + iTunesResult.artistName);
+        let playlistItem = (suggestion.trackName + " by " + suggestion.artistName);
         console.log(playlistItem);
         $('#playlistSpot').append("<div>"+ playlistItem +"</div>");
         }
       })
-      })
+    })
+    
+  
 
 })
 
