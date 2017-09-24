@@ -1,5 +1,20 @@
 const musicInfo = [];
 
+
+function testTheAPI() {
+	$.ajax({
+		url: "https://itunes.apple.com/lookup?id=299608177",
+		success: function(response) {
+			console.log("We got a response from Apple (I think)!");
+			console.log(response);
+		}
+	});
+}
+
+console.log("The script loaded!");
+testTheAPI();
+
+
 function addSongFromField(event) {
   event.preventDefault();
 
@@ -27,10 +42,31 @@ function renderList() {
 
     $list.append($item)
   }
-}
+};
 
 $('#getPlaylistBtn').click(function (event) {
+
+  
+  $('#playlistSpot').empty();
+  
+  $.each(musicInfo, function(i,listItem) {
+    $.ajax({
+      url:'https://itunes.apple.com/search?term=' + listItem + '&limit=1',
+      success: function(iTunesResult){
+        console.log(iTunesResult);
+        let playlistItem = (iTunesResult.trackCensoredName + "by" + iTunesResult.artistName);
+        console.log(playlistItem);
+        $('#playlistSpot').append("<div>"+ playlistItem +"</div>");
+        }
+      })
+      })
+
+})
+
+
+
+    
+
   // TODO: Display a list of music.
   // You may use anything from musicInfo.
-  console.log('Testing Music Call');
-});
+  //Insert Heading into div id="playlistSpot"
