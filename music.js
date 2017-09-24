@@ -3,13 +3,13 @@ const musicInfo = [];
 
 function rickRoll() {
 	$.ajax({
-		url: "https://itunes.apple.com/lookup?id=299608177",
+		url: "https://itunes.apple.com/lookup?id=299608205",
     type: "GET",
     datatype: "json",
     success: function(iTunesResult){
       let suggestion = JSON.parse(iTunesResult).results[0];
       console.log(iTunesResult);
-      let playlistItem = (suggestion.trackName + " by " + suggestion.artistName);
+      let playlistItem = ("<b>" + suggestion.trackName + "</b> by <b>" + suggestion.artistName + "</b>");
       console.log(playlistItem);
       $('#playlistSpot').append("<div>"+ playlistItem +"</div>");
       }
@@ -61,14 +61,25 @@ $('#getPlaylistBtn').click(function (event) {
       success: function(iTunesResult){
         let suggestion = JSON.parse(iTunesResult).results[0];
         console.log(iTunesResult);
-        let playlistItem = (suggestion.trackName + " by " + suggestion.artistName);
+        let playlistItem = ("<b>" + suggestion.trackName + "</b> by <b>" + suggestion.artistName + "</b>");
         console.log(playlistItem);
         $('#playlistSpot').append("<div>"+ playlistItem +"</div>");
         }
       })
     })
     
-  
+  rickRoll();
+  rickRoll();
+  rickRoll();
+  rickRoll();
+  rickRoll();
+  rickRoll();
+  rickRoll();
+  rickRoll();
+  rickRoll();
+  rickRoll();
+  rickRoll();
+  rickRoll();
 
 })
 
